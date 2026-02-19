@@ -1,0 +1,5 @@
+config.yaml
+tasks.txt
+__pycache__/*
+*.pyc
+venv/*

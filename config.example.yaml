@@ -1,0 +1,32 @@
+# Configuration file for Pomodoro Timer
+# All values are optional. If not specified, default values are used.
+
+# Times (in minutes)
+times:
+  work_time: 25        # Work period duration (default: 25 minutes)
+  short_break: 5       # Short break duration (default: 5 minutes)
+  long_break: 15       # Long break duration (default: 15 minutes)
+
+# Interface colors (hexadecimal format)
+colors:
+  work_color: "#FF6B6B"           # Color for work mode (default: light red)
+  short_break_color: "#4ECDC4"    # Color for short break (default: teal)
+  long_break_color: "#45B7D1"     # Color for long break (default: light blue)
+  bg_color: "#2C3E50"             # Background color (default: dark gray)
+  text_color: "#FFFFFF"           # Text color (default: white)
+
+# Window configuration
+window:
+  width: 400           # Window width in pixels (default: 400)
+  height: 500          # Window height in pixels (default: 500)
+  always_on_top: true  # Keep window always visible (default: true)
+
+# Sound configuration
+sound:
+  enabled: true        # Enable/disable notification sound (default: true)
+  alarm_file: "assets/alarm-digital.mp3"  # Alarm file (default: assets/alarm-digital.mp3)
+  ticking_file: "assets/ticking-slow.mp3"  # Ticking sound file (default: assets/ticking-slow.mp3)
+
+# Tasks configuration
+tasks:
+  file: "tasks.txt"    # File where completed tasks are saved (default: tasks.txt)
