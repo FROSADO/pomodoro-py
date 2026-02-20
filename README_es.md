@@ -2,6 +2,18 @@
 
 Aplicación de escritorio desarrollada en Python para implementar la técnica Pomodoro de gestión del tiempo.
 
+***IMPORTANT*** : Este proyecto se ha comenzado como parte de un ejercicio personal cde uso de IA Generativa (Amazon Q con Claude Sonet 4 / 4.5). Con este proyecto pretendo evaluar el coste a nivel de tiempo y esfuerzo de conseguir
+un proyecto viable, mantenible, que funcione. Las conclusiones las publicaré en breve en mi blog o en este mismo proyecto. 
+
+Debo aclarar algunos puntos si pretendes usar este proyecto: 
+- El codigo es 99% generado por IA. Al menos hasta la version 1.0. 
+- Si el resultado cumple mis espectativas de calidad puede que empiece a mantenerlo. Pero hasta la version 1.0 no pretendo introducir ni una sola linea de codigo a mano.
+- En nigún momento la aplicacion pretende hacer nada destructivo o dañino para tu equipo, por lo que dudo que sea inseguro usarlo. Aun así, no garantizo la seguridad de la aplicación. 
+- Por este motivo he decidido no hacer una aplicación web, si no una de escritorio, para evitar vectores de ataque externos en caso de vulnerabilidad. 
+- La mayoria de mis interacciones con la IA son usando el prompt y el/los ficheros de especificaciones [Especificaciones Técnicas - Aplicación Pomodoro Timer](docs/ESPECIFICACIONES_es.md).
+- Se aceptan peticiones de mejoras, pero como parte de mi proyecto, será la IA quien genere el código. (al menos hasta la version 1.0)
+
+
 ## ¿Qué es la Técnica Pomodoro?
 
 La técnica Pomodoro es un método de gestión del tiempo que utiliza intervalos de trabajo (pomodoros) de 25 minutos, separados por breves descansos de 5 minutos. Después de 4 pomodoros, se toma un descanso más largo de 15 minutos.

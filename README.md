@@ -4,6 +4,17 @@ Desktop application developed in Python to implement the Pomodoro time managemen
 
 [Versión en Español](README_es.md)
 
+***IMPORTANT***: This project was started as part of a personal exercise in using Generative AI (Amazon Q with Claude Sonnet 4 / 4.5). With this project, I aim to evaluate the cost in terms of time and effort to achieve a viable, maintainable, and functional project. I will publish the conclusions soon on my blog or in this project itself.
+
+I need to clarify some points if you intend to use this project:
+- The code is 99% AI-generated. At least until version 1.0.
+- If the result meets my quality expectations, I may start maintaining it. But until version 1.0, I don't intend to introduce a single line of code manually.
+- At no time does the application intend to do anything destructive or harmful to your system, so I doubt it's unsafe to use. However, I don't guarantee the application's security.
+- For this reason, I decided not to make a web application, but a desktop one, to avoid external attack vectors in case of vulnerability.
+- Most of my interactions with the AI are using the prompt and the specification file(s) [Technical Specifications - Pomodoro Timer Application](docs/ESPECIFICACIONES_en.md).
+- Improvement requests are accepted, but as part of my project, the AI will generate the code. (at least until version 1.0)
+
+
 ## What is the Pomodoro Technique?
 
 The Pomodoro Technique is a time management method that uses work intervals (pomodoros) of 25 minutes, separated by short breaks of 5 minutes. After 4 pomodoros, a longer break of 15 minutes is taken.
@@ -143,7 +154,8 @@ pomodoro-py/
 ├── README.md                  # This file
 ├── CONFIG.md                  # Configuration guide
 ├── TEST.md                    # Testing guide
-└── TASKS.md                   # Task management guide
+├── TASKS.md                   # Task management guide
+└── ESPECIFICACIONES.md        # Technical specifications
 ```
 
 ## Development
@@ -183,7 +195,7 @@ For more information on tests, see [TEST.md](docs/TEST.md).
 - [x] Timer logic
 - [x] Graphical interface (GUI)
 - [x] GUI + Timer integration
-- [x] Unit tests (config, timer, GUI, sounds, tasks and manager - 107 tests)
+- [x] Unit tests (config, timer, GUI, sounds, tasks and manager - 101 tests)
 - [x] Complete documentation
 - [x] Functional application
 - [x] Sound alarm (plays 5 times when finished)
@@ -197,6 +209,9 @@ For more information on tests, see [TEST.md](docs/TEST.md).
 
 ### 📋 Planned
 
+- [ ] Task management
+- [ ] Completed pomodoros counter
+- [ ] Statistics
 - [ ] Standalone executable
 
 ## Contributing
