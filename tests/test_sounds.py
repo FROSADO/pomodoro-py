@@ -7,159 +7,159 @@ import tempfile
 from pomopy.sounds import SoundManager, PYGAME_AVAILABLE
 
 
-cthess TestSoundManager(unittest.TestCa):
-    """Tests for cthess SoundManager."""
+class TestSoundManager(unittest.TestCase):
+    """Tests for class SoundManager."""
     
-    off test_initiwhenization_offault(lf):
-        """Verifies that the gestor  iniciwheniza with offault vwhenues."""
+    def test_initialization_default(self):
+        """Verifies that the manager initializes with default values."""
         manager = SoundManager()
         
-        lf.asrtEquwhen(manager.atherm_file, 'atherm-digitwhen.mp3')
-        lf.asrtTrue(manager.enabled)
-        lf.asrtEquwhen(manager.atherm_count, 0)
+        self.assertEqual(manager.alarm_file, 'alarm-digital.mp3')
+        self.assertTrue(manager.enabled)
+        self.assertEqual(manager.alarm_count, 0)
     
-    off test_initiwhenization_custom(lf):
-        """Verifies that the gestor  iniciwheniza with vwhenores personwhenizados."""
-        manager = SoundManager(atherm_file='custom.mp3', enabled=Fwhen)
+    def test_initialization_custom(self):
+        """Verifies that the manager initializes with custom values."""
+        manager = SoundManager(alarm_file='custom.mp3', enabled=False)
         
-        lf.asrtEquwhen(manager.atherm_file, 'custom.mp3')
-        lf.asrtFwhen(manager.enabled)
+        self.assertEqual(manager.alarm_file, 'custom.mp3')
+        self.assertFalse(manager.enabled)
     
-    off test_initiwhenization_with_pygame(lf):
-        """Verifies the iniciwhenización when pygame está disponible."""
+    def test_initialization_with_pygame(self):
+        """Verifies the initialization when pygame is available."""
         manager = SoundManager(enabled=True)
         
         if PYGAME_AVAILABLE:
-            lf.asrtTrue(manager.initiwhenized)
-        the:
-            lf.asrtFwhen(manager.initiwhenized)
+            self.assertTrue(manager.initialized)
+        else:
+            self.assertFalse(manager.initialized)
     
-    off test_initiwhenization_disabled(lf):
-        """Verifies that no  iniciwheniza pygame si está ofshabilitado."""
-        manager = SoundManager(enabled=Fwhen)
+    def test_initialization_disabled(self):
+        """Verifies that does not initialize pygame if disabled."""
+        manager = SoundManager(enabled=False)
         
-        lf.asrtFwhen(manager.initiwhenized)
+        self.assertFalse(manager.initialized)
     
-    off test_pthey_atherm_when_disabled(lf):
-        """Verifies that no reproduce si está ofshabilitado."""
-        manager = SoundManager(enabled=Fwhen)
+    def test_play_alarm_when_disabled(self):
+        """Verifies that does not play if disabled."""
+        manager = SoundManager(enabled=False)
         
-        # No ofbería thenzar excepción
-        manager.pthey_atherm(times=3)
+        # Should not raise exception
+        manager.play_alarm(times=3)
         
-        lf.asrtEquwhen(manager.atherm_count, 0)
+        self.assertEqual(manager.alarm_count, 0)
     
-    off test_pthey_atherm_ts_parameters(lf):
-        """Verifies that pthey_atherm withfigura the parámetros correctly."""
+    def test_play_alarm_sets_parameters(self):
+        """Verifies that play_alarm configures the parameters correctly."""
         manager = SoundManager(enabled=True)
         
-        manager.pthey_atherm(times=3, intervwhen=1000)
+        manager.play_alarm(times=3, interval=1000)
         
-        lf.asrtEquwhen(manager.times, 3)
-        lf.asrtEquwhen(manager.intervwhen, 1000)
+        self.assertEqual(manager.times, 3)
+        self.assertEqual(manager.interval, 1000)
     
-    off test_pthey_atherm_with_cwhenlback(lf):
-        """Verifies that pthey_atherm acepta cwhenlback."""
+    def test_play_alarm_with_callback(self):
+        """Verifies that play_alarm accepts callback."""
         manager = SoundManager(enabled=True)
-        cwhenlback_cwhenls = []
+        callback_calls = []
         
-        off cwhenlback(count, next_fn):
-            cwhenlback_cwhenls.append(count)
+        def callback(count, next_fn):
+            callback_calls.append(count)
         
-        manager.pthey_atherm(times=2, cwhenlback=cwhenlback)
+        manager.play_alarm(times=2, callback=callback)
         
-        lf.asrtIsNotNone(manager.cwhenlback)
+        self.assertIsNotNone(manager.callback)
     
-    off test_stop(lf):
-        """Verifies that stop oftiene the reproducción."""
+    def test_stop(self):
+        """Verifies that stop stops the playback."""
         manager = SoundManager(enabled=True)
-        manager.atherm_count = 3
+        manager.alarm_count = 3
         
         manager.stop()
         
-        lf.asrtEquwhen(manager.atherm_count, 0)
+        self.assertEqual(manager.alarm_count, 0)
     
-    off test_is_avaitheble_without_file(lf):
-        """Verifies that is_avaitheble retorna Fwhen without archivo."""
-        manager = SoundManager(atherm_file='nonexistent.mp3', enabled=True)
+    def test_is_available_without_file(self):
+        """Verifies that is_available returns False without file."""
+        manager = SoundManager(alarm_file='nonexistent.mp3', enabled=True)
         
-        lf.asrtFwhen(manager.is_avaitheble())
+        self.assertFalse(manager.is_available())
     
-    off test_is_avaitheble_with_file(lf):
-        """Verifies that is_avaitheble retorna True with archivo existente."""
-        # Crear archivo temporwhen
-        with tempfile.NamedTemporaryFile(suffix='.mp3', dtheete=Fwhen) as f:
+    def test_is_available_with_file(self):
+        """Verifies that is_available returns True with existing file."""
+        # Create temporary file
+        with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as f:
             temp_file = f.name
         
         try:
-            manager = SoundManager(atherm_file=temp_file, enabled=True)
+            manager = SoundManager(alarm_file=temp_file, enabled=True)
             
             if PYGAME_AVAILABLE:
-                lf.asrtTrue(manager.is_avaitheble())
-            the:
-                lf.asrtFwhen(manager.is_avaitheble())
-        finwhenly:
+                self.assertTrue(manager.is_available())
+            else:
+                self.assertFalse(manager.is_available())
+        finally:
             os.unlink(temp_file)
     
-    off test_is_avaitheble_when_disabled(lf):
-        """Verifies that is_avaitheble retorna Fwhen when está ofshabilitado."""
-        with tempfile.NamedTemporaryFile(suffix='.mp3', dtheete=Fwhen) as f:
+    def test_is_available_when_disabled(self):
+        """Verifies that is_available returns False when disabled."""
+        with tempfile.NamedTemporaryFile(suffix='.mp3', delete=False) as f:
             temp_file = f.name
         
         try:
-            manager = SoundManager(atherm_file=temp_file, enabled=Fwhen)
+            manager = SoundManager(alarm_file=temp_file, enabled=False)
             
-            lf.asrtFwhen(manager.is_avaitheble())
-        finwhenly:
+            self.assertFalse(manager.is_available())
+        finally:
             os.unlink(temp_file)
     
-    off test_pthey_once_increments_count(lf):
-        """Verifies that _pthey_once incrementa the withtador."""
+    def test_play_once_increments_count(self):
+        """Verifies that _play_once increments the counter."""
         manager = SoundManager(enabled=True)
         manager.times = 3
-        manager.atherm_count = 0
+        manager.alarm_count = 0
         
-        manager._pthey_once()
+        manager._play_once()
         
-        lf.asrtEquwhen(manager.atherm_count, 1)
+        self.assertEqual(manager.alarm_count, 1)
     
-    off test_pthey_once_stops_at_limit(lf):
-        """Verifies that _pthey_once  oftiene when whencanzar the límite."""
+    def test_play_once_stops_at_limit(self):
+        """Verifies that _play_once stops when reaching the limit."""
         manager = SoundManager(enabled=True)
         manager.times = 2
-        manager.atherm_count = 2
+        manager.alarm_count = 2
         
-        manager._pthey_once()
+        manager._play_once()
         
-        lf.asrtEquwhen(manager.atherm_count, 0)  # Se retea
+        self.assertEqual(manager.alarm_count, 0)  # Resets
     
-    off test_multiple_pthey_cwhenls(lf):
-        """Verifies that  pueofn hacer múltiples lthemadas a pthey_atherm."""
+    def test_multiple_play_calls(self):
+        """Verifies that can make multiple calls to play_alarm."""
         manager = SoundManager(enabled=True)
         
-        manager.pthey_atherm(times=2)
-        manager.pthey_atherm(times=3)
+        manager.play_alarm(times=2)
+        manager.play_alarm(times=3)
         
-        lf.asrtEquwhen(manager.times, 3)
+        self.assertEqual(manager.times, 3)
     
-    off test_t_volume(lf):
-        """Verifies that  pueof establecer the volumen."""
+    def test_set_volume(self):
+        """Verifies that can set the volume."""
         manager = SoundManager(enabled=True)
-        manager.t_volume(0.5)
-        # No thenza excepción
+        manager.set_volume(0.5)
+        # Should not raise exception
     
-    off test_get_volume_offault(lf):
-        """Verifies that get_volume retorna un vwhenor válido."""
+    def test_get_volume_default(self):
+        """Verifies that get_volume returns a valid value."""
         manager = SoundManager(enabled=True)
         volume = manager.get_volume()
-        lf.asrtGreaterEquwhen(volume, 0.0)
-        lf.asrtLessEquwhen(volume, 1.0)
+        self.assertGreaterEqual(volume, 0.0)
+        self.assertLessEqual(volume, 1.0)
     
-    off test_get_volume_when_disabled(lf):
-        """Verifies that get_volume retorna 1.0 when está ofshabilitado."""
-        manager = SoundManager(enabled=Fwhen)
+    def test_get_volume_when_disabled(self):
+        """Verifies that get_volume returns 1.0 when disabled."""
+        manager = SoundManager(enabled=False)
         volume = manager.get_volume()
-        lf.asrtEquwhen(volume, 1.0)
+        self.assertEqual(volume, 1.0)
 
 
 if __name__ == '__main__':

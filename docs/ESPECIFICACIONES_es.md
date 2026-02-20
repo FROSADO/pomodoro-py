@@ -188,6 +188,7 @@ pomodoro-py/
 3. ✅ Crear `requirements.txt` con PyYAML
 4. ✅ Crear tests unitarios para configuración
 5. ✅ Crear documentación de configuración (CONFIG.md)
+  
 
 ### Fase 2: Lógica del Temporizador ✅ COMPLETADA
 1. ✅ Implementar clase `PomodoroTimer` en `pomodoro_timer.py`
@@ -331,7 +332,9 @@ pomodoro-py/
 │      [✅ tarea completada]         |
 |                                     │
 │  [Trabajo] [Descanso] [Descanso]    │
-│            [Corto   ] [Largo   ]    │
+│            [Corto   ] [Largo   ]    |
+|                                     │
+|            [ REUNION ]              │
 │                                     |
 │  Pomodoros completados: 0           |
 │  Descansos cortos: 0                |

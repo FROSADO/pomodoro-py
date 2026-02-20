@@ -3,3 +3,5 @@ tasks.txt
 __pycache__/*
 *.pyc
 venv/*
+records/*
+.coverage

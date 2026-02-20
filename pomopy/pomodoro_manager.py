@@ -25,7 +25,8 @@ class PomodoroManager:
             tasks_file=config.TASKS_FILE,
             work_time=config.WORK_TIME,
             short_break_time=config.SHORT_BREAK,
-            long_break_time=config.LONG_BREAK
+            long_break_time=config.LONG_BREAK,
+            tasks_folder=config.TASKS_FOLDER
         )
         self.sound_manager = SoundManager(
             alarm_file=config.ALARM_FILE,
@@ -188,3 +189,15 @@ class PomodoroManager:
             Value entre 0.0 y 1.0
         """
         return self.sound_manager.get_volume()
+    
+    def increment_meeting_time(self, seconds):
+        """Increments el tiempo de reunión."""
+        self.task_manager.increment_meeting_time(seconds)
+    
+    def get_meeting_time(self):
+        """Gets el tiempo de reunión formateado."""
+        return self.task_manager.get_meeting_time()
+    
+    def save_meeting(self):
+        """Guarda el tiempo de reunión como tarea."""
+        return self.task_manager.save_meeting()

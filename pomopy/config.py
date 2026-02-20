@@ -19,12 +19,13 @@ class Config:
     WORK_COLOR = "#FF6B6B"  # Rojo claro
     SHORT_BREAK_COLOR = "#4ECDC4"  # Verde azulado
     LONG_BREAK_COLOR = "#45B7D1"  # Azul claro
+    MEETING_COLOR = "#FFA500"  # Naranja
     BG_COLOR = "#2C3E50"  # Fondo oscuro
     TEXT_COLOR = "#FFFFFF"  # Texto blanco
     
     # Configuration de ventana
     WINDOW_WIDTH = 400
-    WINDOW_HEIGHT = 500
+    WINDOW_HEIGHT = 600
     ALWAYS_ON_TOP = True
     
     # Configuration de sonido
@@ -33,7 +34,8 @@ class Config:
     TICKING_FILE = "assets/ticking-slow.mp3"
     
     # Configuration de tareas
-    TASKS_FILE = "tasks.txt"
+    TASKS_FOLDER = "records"
+    TASKS_FILE = "tasks.txt"  # Deprecated, kept for compatibility
     
     def __init__(self, config_file="config.yaml", silent=False):
         """
@@ -78,6 +80,8 @@ class Config:
                     self.SHORT_BREAK_COLOR = colors['short_break_color']
                 if 'long_break_color' in colors:
                     self.LONG_BREAK_COLOR = colors['long_break_color']
+                if 'meeting_color' in colors:
+                    self.MEETING_COLOR = colors['meeting_color']
                 if 'bg_color' in colors:
                     self.BG_COLOR = colors['bg_color']
                 if 'text_color' in colors:
@@ -106,6 +110,8 @@ class Config:
             # Loadsr configuración de tareas
             if 'tasks' in config_data:
                 tasks = config_data['tasks']
+                if 'folder' in tasks:
+                    self.TASKS_FOLDER = tasks['folder']
                 if 'file' in tasks:
                     self.TASKS_FILE = tasks['file']
                     

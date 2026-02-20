@@ -3,15 +3,16 @@
 
 # Times (in minutes)
 times:
-  work_time: 25        # Work period duration (default: 25 minutes)
-  short_break: 5       # Short break duration (default: 5 minutes)
-  long_break: 15       # Long break duration (default: 15 minutes)
+  work_time: 25        # Work period duration (default: 25)
+  short_break: 5       # Short break duration (default: 5)
+  long_break: 15       # Long break duration (default: 15)
 
 # Interface colors (hexadecimal format)
 colors:
   work_color: "#FF6B6B"           # Color for work mode (default: light red)
   short_break_color: "#4ECDC4"    # Color for short break (default: teal)
   long_break_color: "#45B7D1"     # Color for long break (default: light blue)
+  meeting_color: "#FFA500"        # Color for meeting indicator (default: orange)
   bg_color: "#2C3E50"             # Background color (default: dark gray)
   text_color: "#FFFFFF"           # Text color (default: white)
 
@@ -29,4 +30,4 @@ sound:
 
 # Tasks configuration
 tasks:
-  file: "tasks.txt"    # File where completed tasks are saved (default: tasks.txt)
+  folder: "records"    # Folder where daily task files are saved (default: records)

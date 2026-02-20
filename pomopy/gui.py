@@ -22,6 +22,7 @@ class PomodoroApp:
         self.config = config or Config()
         self.manager = PomodoroManager(self.config)
         self.manager.set_finish_callback(self._on_timer_finish)
+        self.meeting_active = False
         
         self._setup_window()
         self._create_widgets()
@@ -30,7 +31,7 @@ class PomodoroApp:
     def _setup_window(self):
         """Configura la ventana principal."""
         self.root.title("Pomodoro Timer")
-        self.root.geometry(f"{self.config.WINDOW_WIDTH}x{self.config.WINDOW_HEIGHT}")
+        self.root.geometry(f"{self.config.WINDOW_WIDTH}x{self.config.WINDOW_HEIGHT + 50}")
         self.root.configure(bg=self.config.BG_COLOR)
         self.root.resizable(False, False)
         
@@ -199,6 +200,32 @@ class PomodoroApp:
         )
         self.long_break_button.pack(side=tk.LEFT, padx=5)
         
+        # Botón de reunión
+        meeting_frame = tk.Frame(self.root, bg=self.config.BG_COLOR)
+        meeting_frame.pack(pady=10)
+        
+        self.meeting_button = tk.Button(
+            meeting_frame,
+            text="MEETING",
+            command=self.toggle_meeting,
+            width=38,
+            height=2,
+            font=font.Font(size=10, weight='bold'),
+            bg=self.config.MEETING_COLOR,
+            fg="#000000"
+        )
+        self.meeting_button.pack()
+        
+        # Label de tiempo de reunión
+        self.meeting_time_label = tk.Label(
+            self.root,
+            text="Meeting time: 00:00:00",
+            font=font.Font(size=9),
+            bg=self.config.BG_COLOR,
+            fg=self.config.TEXT_COLOR
+        )
+        self.meeting_time_label.pack(pady=5)
+        
         # Control de volumen
         volume_frame = tk.Frame(self.root, bg=self.config.BG_COLOR)
         volume_frame.pack(pady=10)
@@ -316,6 +343,27 @@ class PomodoroApp:
             self.complete_task_button.config(state=tk.DISABLED)
             self._update_stats()
     
+    def toggle_meeting(self):
+        """Alterna el modo de reunión."""
+        if self.meeting_active:
+            # Finalizar reunión
+            self.meeting_active = False
+            self.meeting_button.config(text="MEETING")
+            self.manager.save_meeting()
+            self._update_stats()
+        else:
+            # Iniciar reunión
+            self.meeting_active = True
+            self.meeting_button.config(text="END MEETING")
+            self._meeting_tick()
+    
+    def _meeting_tick(self):
+        """Incrementa el tiempo de reunión cada segundo."""
+        if self.meeting_active:
+            self.manager.increment_meeting_time(1)
+            self._update_stats()
+            self.root.after(1000, self._meeting_tick)
+    
     def _update_stats(self):
         """Updates las estadísticas mostradas."""
         stats = self.manager.get_stats()
@@ -324,6 +372,7 @@ class PomodoroApp:
         self.long_break_label.config(text=f"Long breaks: {stats['long_break']}")
         self.work_time_label.config(text=f"Work time: {self.manager.get_total_work_time()}")
         self.break_time_label.config(text=f"Break time: {self.manager.get_total_break_time()}")
+        self.meeting_time_label.config(text=f"Meeting time: {self.manager.get_meeting_time()}")
     
     def _on_volume_change(self, value):
         """Callback cuando cambia el volumen."""
