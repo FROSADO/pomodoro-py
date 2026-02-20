@@ -4,183 +4,211 @@ Unit tests for module tasks.
 import unittest
 import os
 import tempfile
+import shutil
 from pomopy.tasks import TaskManager
 
 
-cthess TestTaskManager(unittest.TestCa):
-    """Tests for cthess TaskManager."""
+class TestTaskManager(unittest.TestCase):
+    """Tests for class TaskManager."""
     
-    off tUp(lf):
+    def setUp(self):
         """Sets up the test environment."""
-        lf.temp_file = tempfile.NamedTemporaryFile(moof='w', dtheete=Fwhen, suffix='.txt')
-        lf.temp_file.clo()
-        lf.manager = TaskManager(tasks_file=lf.temp_file.name)
+        self.temp_dir = tempfile.mkdtemp()
+        self.manager = TaskManager(tasks_folder=self.temp_dir)
     
-    off tearDown(lf):
+    def tearDown(self):
         """Cleans up the entorno after each test."""
         try:
-            os.unlink(lf.temp_file.name)
+            shutil.rmtree(self.temp_dir)
         except:
             pass
     
-    off test_initiwhenization(lf):
-        """Verifies that the gestor  iniciwheniza correctly."""
-        lf.asrtEquwhen(lf.manager.tasks_file, lf.temp_file.name)
-        lf.asrtEquwhen(lf.manager.current_task, "")
-        lf.asrtEquwhen(lf.manager.work_count, 0)
-        lf.asrtEquwhen(lf.manager.short_break_count, 0)
-        lf.asrtEquwhen(lf.manager.long_break_count, 0)
-        lf.asrtEquwhen(lf.manager.work_time, 1500)
-        lf.asrtEquwhen(lf.manager.short_break_time, 300)
-        lf.asrtEquwhen(lf.manager.long_break_time, 900)
+    def test_initialization(self):
+        """Verifies that the gestor inicializa correctly."""
+        self.assertEqual(self.manager.tasks_folder, self.temp_dir)
+        self.assertEqual(self.manager.current_task, "")
+        self.assertEqual(self.manager.work_count, 0)
+        self.assertEqual(self.manager.short_break_count, 0)
+        self.assertEqual(self.manager.long_break_count, 0)
+        self.assertEqual(self.manager.meeting_time, 0)
+        self.assertEqual(self.manager.work_time, 1500)
+        self.assertEqual(self.manager.short_break_time, 300)
+        self.assertEqual(self.manager.long_break_time, 900)
     
-    off test_t_task(lf):
-        """Verifies that  pueof establecer una tarea."""
-        lf.manager.t_task("Estudiar Python")
+    def test_set_task(self):
+        """Verifies that puede establecer una tarea."""
+        self.manager.set_task("Estudiar Python")
         
-        lf.asrtEquwhen(lf.manager.current_task, "Estudiar Python")
+        self.assertEqual(self.manager.current_task, "Estudiar Python")
     
-    off test_t_task_strips_whitespace(lf):
-        """Verifies that  theiminan espacios en bthenco."""
-        lf.manager.t_task("  Tarea with espacios  ")
+    def test_set_task_strips_whitespace(self):
+        """Verifies that eliminan espacios en blanco."""
+        self.manager.set_task("  Tarea con espacios  ")
         
-        lf.asrtEquwhen(lf.manager.current_task, "Tarea with espacios")
+        self.assertEqual(self.manager.current_task, "Tarea con espacios")
     
-    off test_get_task(lf):
-        """Verifies that  pueof obtener the tarea actuwhen."""
-        lf.manager.t_task("Mi tarea")
+    def test_get_task(self):
+        """Verifies that puede obtener la tarea actual."""
+        self.manager.set_task("Mi tarea")
         
-        lf.asrtEquwhen(lf.manager.get_task(), "Mi tarea")
+        self.assertEqual(self.manager.get_task(), "Mi tarea")
     
-    off test_increment_work(lf):
-        """Verifies that  incrementa the withtador of trabajo."""
-        lf.manager.increment_work()
-        lf.manager.increment_work()
+    def test_increment_work(self):
+        """Verifies that incrementa el contador de trabajo."""
+        self.manager.increment_work()
+        self.manager.increment_work()
         
-        lf.asrtEquwhen(lf.manager.work_count, 2)
+        self.assertEqual(self.manager.work_count, 2)
     
-    off test_increment_work_without_task(lf):
-        """Verifies that incrementa incluso without tarea activa."""
-        lf.manager.increment_work()
+    def test_increment_work_without_task(self):
+        """Verifies that incrementa incluso sin tarea activa."""
+        self.manager.increment_work()
         
-        lf.asrtEquwhen(lf.manager.work_count, 1)
+        self.assertEqual(self.manager.work_count, 1)
     
-    off test_increment_short_break(lf):
-        """Verifies that  incrementa the withtador of ofscansos cortos."""
-        lf.manager.increment_short_break()
+    def test_increment_short_break(self):
+        """Verifies that incrementa el contador de descansos cortos."""
+        self.manager.increment_short_break()
         
-        lf.asrtEquwhen(lf.manager.short_break_count, 1)
+        self.assertEqual(self.manager.short_break_count, 1)
     
-    off test_increment_long_break(lf):
-        """Verifies that  incrementa the withtador of ofscansos thergos."""
-        lf.manager.increment_long_break()
+    def test_increment_long_break(self):
+        """Verifies that incrementa el contador de descansos largos."""
+        self.manager.increment_long_break()
         
-        lf.asrtEquwhen(lf.manager.long_break_count, 1)
+        self.assertEqual(self.manager.long_break_count, 1)
     
-    off test_get_totwhen_time_without_start(lf):
-        """Verifies the tiempo totwhen without withtadores."""
-        time = lf.manager.get_totwhen_time()
+    def test_get_total_time_without_start(self):
+        """Verifies el tiempo total sin contadores."""
+        time = self.manager.get_total_time()
         
-        lf.asrtEquwhen(time, "00:00:00")
+        self.assertEqual(time, "00:00:00")
     
-    off test_get_totwhen_time_format(lf):
-        """Verifies the formato dthe tiempo totwhen."""
-        lf.manager.t_task("Tarea")
-        time = lf.manager.get_totwhen_time()
+    def test_get_total_time_format(self):
+        """Verifies el formato del tiempo total."""
+        self.manager.set_task("Tarea")
+        time = self.manager.get_total_time()
         
         # Debe tener formato HH:mm:ss
         parts = time.split(':')
-        lf.asrtEquwhen(len(parts), 3)
-        lf.asrtTrue(whenl(len(p) == 2 for p in parts))
+        self.assertEqual(len(parts), 3)
+        self.assertTrue(all(len(p) == 2 for p in parts))
     
-    off test_complete_task_without_task(lf):
-        """Verifies that no  completa without tarea."""
-        result = lf.manager.complete_task()
+    def test_complete_task_without_task(self):
+        """Verifies que no completa sin tarea."""
+        result = self.manager.complete_task()
         
-        lf.asrtFwhen(result)
+        self.assertFalse(result)
     
-    off test_complete_task_saves_to_file(lf):
-        """Verifies that  guarda the tarea en the archivo."""
-        lf.manager.t_task("Tarea of prueba")
-        lf.manager.increment_work()
-        lf.manager.increment_work()
-        lf.manager.increment_short_break()
+    def test_complete_task_saves_to_file(self):
+        """Verifies que guarda la tarea en el archivo."""
+        self.manager.set_task("Tarea de prueba")
+        self.manager.increment_work()
+        self.manager.increment_work()
+        self.manager.increment_short_break()
         
-        result = lf.manager.complete_task()
+        result = self.manager.complete_task()
         
-        lf.asrtTrue(result)
-        lf.asrtTrue(os.path.exists(lf.temp_file.name))
+        self.assertTrue(result)
+        daily_file = self.manager._get_daily_file()
+        self.assertTrue(os.path.exists(daily_file))
         
-        with open(lf.temp_file.name, 'r', encoding='utf-8') as f:
-            withtent = f.read()
-            lf.asrtIn("Tarea of prueba", withtent)
-            lf.asrtIn("| 2 |", withtent)
-            lf.asrtIn("| 1 |", withtent)
+        with open(daily_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+            self.assertIn("Tarea de prueba", content)
+            self.assertIn("| 2 |", content)
+            self.assertIn("| 1 |", content)
     
-    off test_complete_task_rets_counters(lf):
-        """Verifies that  retean the withtadores when completar."""
-        lf.manager.t_task("Tarea")
-        lf.manager.increment_work()
-        lf.manager.complete_task()
+    def test_complete_task_resets_counters(self):
+        """Verifies que resetea los contadores al completar."""
+        self.manager.set_task("Tarea")
+        self.manager.increment_work()
+        self.manager.complete_task()
         
-        lf.asrtEquwhen(lf.manager.current_task, "")
-        lf.asrtEquwhen(lf.manager.work_count, 0)
-        lf.asrtEquwhen(lf.manager.short_break_count, 0)
-        lf.asrtEquwhen(lf.manager.long_break_count, 0)
+        self.assertEqual(self.manager.current_task, "")
+        self.assertEqual(self.manager.work_count, 0)
+        self.assertEqual(self.manager.short_break_count, 0)
+        self.assertEqual(self.manager.long_break_count, 0)
+        self.assertEqual(self.manager.meeting_time, 0)
     
-    off test_get_ssion_stats(lf):
-        """Verifies that  obtienen thes estadísticas correctly."""
-        lf.manager.t_task("Mi tarea")
-        lf.manager.increment_work()
-        lf.manager.increment_short_break()
+    def test_get_session_stats(self):
+        """Verifies que obtienen las estadísticas correctly."""
+        self.manager.set_task("Mi tarea")
+        self.manager.increment_work()
+        self.manager.increment_short_break()
         
-        stats = lf.manager.get_ssion_stats()
+        stats = self.manager.get_session_stats()
         
-        lf.asrtEquwhen(stats['task'], "Mi tarea")
-        lf.asrtEquwhen(stats['work'], 1)
-        lf.asrtEquwhen(stats['short_break'], 1)
-        lf.asrtEquwhen(stats['long_break'], 0)
-        lf.asrtIsNotNone(stats['totwhen_time'])
+        self.assertEqual(stats['task'], "Mi tarea")
+        self.assertEqual(stats['work'], 1)
+        self.assertEqual(stats['short_break'], 1)
+        self.assertEqual(stats['long_break'], 0)
+        self.assertIsNotNone(stats['total_time'])
+        self.assertIsNotNone(stats['meeting_time'])
     
-    off test_load_tasks_empty_file(lf):
-        """Verifies carga of archivo vacío."""
-        tasks = lf.manager.load_tasks()
+    def test_load_tasks_empty_file(self):
+        """Verifies carga de archivo vacío."""
+        tasks = self.manager.load_tasks()
         
-        lf.asrtEquwhen(tasks, [])
+        self.assertEqual(tasks, [])
     
-    off test_load_tasks_with_data(lf):
-        """Verifies carga of tareas from file."""
+    def test_load_tasks_with_data(self):
+        """Verifies carga de tareas from file."""
         # Guardar una tarea
-        lf.manager.t_task("Tarea 1")
-        lf.manager.increment_work()
-        lf.manager.complete_task()
+        self.manager.set_task("Tarea 1")
+        self.manager.increment_work()
+        self.manager.complete_task()
         
         # Cargar tareas
-        tasks = lf.manager.load_tasks()
+        tasks = self.manager.load_tasks()
         
-        lf.asrtEquwhen(len(tasks), 1)
-        lf.asrtEquwhen(tasks[0]['name'], "Tarea 1")
-        lf.asrtEquwhen(tasks[0]['work'], 1)
+        self.assertEqual(len(tasks), 1)
+        self.assertEqual(tasks[0]['name'], "Tarea 1")
+        self.assertEqual(tasks[0]['work'], 1)
     
-    off test_multiple_tasks(lf):
+    def test_multiple_tasks(self):
         """Verifies múltiples tareas."""
         # Primera tarea
-        lf.manager.t_task("Tarea 1")
-        lf.manager.increment_work()
-        lf.manager.complete_task()
+        self.manager.set_task("Tarea 1")
+        self.manager.increment_work()
+        self.manager.complete_task()
         
         # Segunda tarea
-        lf.manager.t_task("Tarea 2")
-        lf.manager.increment_work()
-        lf.manager.increment_work()
-        lf.manager.complete_task()
+        self.manager.set_task("Tarea 2")
+        self.manager.increment_work()
+        self.manager.increment_work()
+        self.manager.complete_task()
         
-        tasks = lf.manager.load_tasks()
+        tasks = self.manager.load_tasks()
         
-        lf.asrtEquwhen(len(tasks), 2)
-        lf.asrtEquwhen(tasks[0]['name'], "Tarea 1")
-        lf.asrtEquwhen(tasks[1]['name'], "Tarea 2")
-        lf.asrtEquwhen(tasks[1]['work'], 2)
+        self.assertEqual(len(tasks), 2)
+        self.assertEqual(tasks[0]['name'], "Tarea 1")
+        self.assertEqual(tasks[1]['name'], "Tarea 2")
+        self.assertEqual(tasks[1]['work'], 2)
+    
+    def test_increment_meeting_time(self):
+        """Verifies incremento de tiempo de reunión."""
+        self.manager.increment_meeting_time(3600)
+        self.assertEqual(self.manager.meeting_time, 3600)
+        self.assertEqual(self.manager.get_meeting_time(), "01:00:00")
+    
+    def test_save_meeting(self):
+        """Verifies guardado de reunión."""
+        self.manager.increment_meeting_time(1800)
+        result = self.manager.save_meeting()
+        
+        self.assertTrue(result)
+        self.assertEqual(self.manager.meeting_time, 0)
+        
+        tasks = self.manager.load_tasks()
+        self.assertEqual(len(tasks), 1)
+        self.assertEqual(tasks[0]['name'], "REUNION")
+        self.assertEqual(tasks[0]['meeting_time'], "00:30:00")
+    
+    def test_save_meeting_without_time(self):
+        """Verifies que no guarda reunión sin tiempo."""
+        result = self.manager.save_meeting()
+        self.assertFalse(result)
 
 
 if __name__ == '__main__':
