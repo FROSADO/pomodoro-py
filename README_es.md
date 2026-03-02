@@ -28,7 +28,8 @@ La técnica Pomodoro es un método de gestión del tiempo que utiliza intervalos
 - 🔊 Sonido de ticking durante períodos de trabajo
 - 🔉 Control de volumen ajustable
 - 📝 Gestión de tareas con seguimiento de pomodoros
-- 💾 Persistencia de tareas completadas
+- 💾 Persistencia de tareas completadas en archivos diarios
+- 🤝 Seguimiento de tiempo de reuniones
 - ⚙️ Configuración personalizable mediante archivo YAML
 - 🪟 Ventana siempre visible (always on top)
 
@@ -69,7 +70,8 @@ python main.py
 5. **Descanso Largo**: Cambia a descanso largo (15 minutos por defecto)
 6. **Campo de tarea**: Escribe el nombre de tu tarea y presiona Enter
 7. **✓ Completar**: Completa y guarda la tarea actual (se activa al escribir texto)
-8. **Control de volumen**: Ajusta el volumen de los sonidos (0-100)
+8. **REUNION**: Inicia/detiene el seguimiento de tiempo de reunión
+9. **Control de volumen**: Ajusta el volumen de los sonidos (0-100)
 
 ### Flujo de Trabajo Recomendado
 
@@ -83,6 +85,7 @@ python main.py
 8. Repite el ciclo
 9. Después de 4 pomodoros, toma un "Descanso Largo"
 10. Al terminar la tarea, presiona "✓ Completar" para guardarla (pausa automáticamente el temporizador y guarda los contadores)
+11. Para reuniones, presiona "REUNION" para iniciar el seguimiento, presiona "FIN REUNION" para guardar
 
 Para más detalles sobre gestión de tareas, consulta [TASKS.md](docs/TASKS.md).
 
@@ -147,6 +150,7 @@ pomodoro-py/
 ├── assets/                    # Recursos de la aplicación
 │   ├── alarm-digital.mp3      # Archivo de alarma sonora
 │   └── ticking-slow.mp3       # Archivo de sonido de ticking
+├── records/                   # Archivos de tareas diarias
 ├── requirements.txt           # Dependencias
 ├── config.yaml.example        # Plantilla de configuración
 ├── README.md                  # Este archivo
@@ -185,6 +189,26 @@ python -m unittest discover -s tests -p "test_*.py"
 
 Para más información sobre tests, consulta [TEST.md](docs/TEST.md).
 
+### Construir Distribuibles
+
+Para crear paquetes distribuibles, consulta la [Guía de Distribución](docs/DISTRIBUTION_es.md).
+
+```bash
+# Windows ejecutable (usar python explícitamente)
+python build_windows.py
+# O usar el archivo batch
+build_windows.bat
+
+# Linux ejecutable
+python build_linux.py
+
+# Paquete Debian
+python build_deb.py
+
+# Paquete RPM
+python build_rpm.py
+```
+
 ## Estado del Proyecto
 
 ### ✅ Completado
@@ -193,24 +217,20 @@ Para más información sobre tests, consulta [TEST.md](docs/TEST.md).
 - [x] Lógica del temporizador
 - [x] Interfaz gráfica (GUI)
 - [x] Integración GUI + Timer
-- [x] Tests unitarios (config, timer, GUI, sounds, tasks y manager - 101 tests)
+- [x] Tests unitarios (90 tests: config, timer, sounds, tasks, manager)
 - [x] Documentación completa
 - [x] Aplicación funcional
 - [x] Alarma sonora (se reproduce 5 veces al terminar)
-- [x] Gestión de tareas con persistencia
+- [x] Gestión de tareas con persistencia en archivos diarios
 - [x] Control de volumen ajustable
-
-### 🚧 En Desarrollo
-
-- [ ] Visualización de tareas completadas
-- [ ] Estadísticas gráficas
+- [x] Seguimiento de tiempo de reuniones
+- [x] Visualización de estadísticas (pomodoros, descansos, tiempo de trabajo, tiempo de descanso, tiempo de reunión)
 
 ### 📋 Planificado
 
-- [ ] Gestión de tareas
-- [ ] Contador de pomodoros completados
-- [ ] Estadísticas
-- [ ] Ejecutable standalone
+- [ ] Visualización de tareas completadas desde archivos diarios
+- [ ] Estadísticas gráficas y gráficos
+- [ ] Ejecutable standalone (PyInstaller)
 
 ## Contribuir
 
