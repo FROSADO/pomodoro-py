@@ -29,7 +29,8 @@ The Pomodoro Technique is a time management method that uses work intervals (pom
 - 🔊 Ticking sound during work periods
 - 🔉 Adjustable volume control
 - 📝 Task management with pomodoro tracking
-- 💾 Persistence of completed tasks
+- 💾 Persistence of completed tasks in daily files
+- 🤝 Meeting time tracking
 - ⚙️ Customizable configuration via YAML file
 - 🪟 Always-on-top window
 
@@ -70,7 +71,8 @@ python main.py
 5. **Long Break**: Switches to long break (15 minutes by default)
 6. **Task field**: Write your task name and press Enter
 7. **✓ Complete**: Completes and saves the current task (activates when typing text)
-8. **Volume control**: Adjusts sound volume (0-100)
+8. **MEETING**: Starts/stops meeting time tracking
+9. **Volume control**: Adjusts sound volume (0-100)
 
 ### Recommended Workflow
 
@@ -84,6 +86,7 @@ python main.py
 8. Repeat the cycle
 9. After 4 pomodoros, take a "Long Break"
 10. When finishing the task, press "✓ Complete" to save it (automatically pauses timer and saves counters)
+11. For meetings, press "MEETING" to start tracking time, press "END MEETING" to save
 
 For more details on task management, see [TASKS.md](docs/TASKS.md).
 
@@ -149,6 +152,7 @@ pomodoro-py/
 ├── assets/                    # Application resources
 │   ├── alarm-digital.mp3      # Alarm sound file
 │   └── ticking-slow.mp3       # Ticking sound file
+├── records/                   # Daily task files
 ├── requirements.txt           # Dependencies
 ├── config.yaml.example        # Configuration template
 ├── README.md                  # This file
@@ -195,24 +199,20 @@ For more information on tests, see [TEST.md](docs/TEST.md).
 - [x] Timer logic
 - [x] Graphical interface (GUI)
 - [x] GUI + Timer integration
-- [x] Unit tests (config, timer, GUI, sounds, tasks and manager - 101 tests)
+- [x] Unit tests (90 tests: config, timer, sounds, tasks, manager)
 - [x] Complete documentation
 - [x] Functional application
 - [x] Sound alarm (plays 5 times when finished)
-- [x] Task management with persistence
+- [x] Task management with persistence in daily files
 - [x] Adjustable volume control
-
-### 🚧 In Development
-
-- [ ] Visualization of completed tasks
-- [ ] Graphical statistics
+- [x] Meeting time tracking
+- [x] Statistics display (pomodoros, breaks, work time, break time, meeting time)
 
 ### 📋 Planned
 
-- [ ] Task management
-- [ ] Completed pomodoros counter
-- [ ] Statistics
-- [ ] Standalone executable
+- [ ] Visualization of completed tasks from daily files
+- [ ] Graphical statistics and charts
+- [ ] Standalone executable (PyInstaller)
 
 ## Contributing
 
