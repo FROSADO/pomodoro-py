@@ -178,6 +178,54 @@ pomodoro-py/
 - Inicialización de la aplicación
 - Punto de entrada
 
+### 6. CI/CD, Creación y Publicación de Distribuibles
+
+La herramienta se analiza y compila con GitHub Actions, permitiendo la ejecución automatizada de herramientas de compilación.
+
+#### 6.1 Plataformas Soportadas
+- **Windows**: Ejecutable standalone (.exe) usando PyInstaller
+- **Linux**: 
+  - Ejecutable standalone usando PyInstaller
+  - Ubuntu/Debian: Paquete .deb
+  - RedHat/Fedora/CentOS: Paquete .rpm
+
+#### 6.2 Scripts de Construcción
+Todos los scripts están en la raíz del proyecto:
+- `build_windows.py`: Construye ejecutable Windows
+- `build_linux.py`: Construye ejecutable Linux
+- `build_deb.py`: Construye paquete Debian
+- `build_rpm.py`: Construye paquete RPM
+
+Estos scripts pueden ejecutarse localmente para pruebas antes de usar CI/CD.
+
+#### 6.3 Workflow de GitHub Actions
+Archivo: `.github/workflows/build-release.yml`
+
+**Etapas:**
+1. **Test**: Ejecuta todos los tests unitarios
+2. **Build Windows**: Construye ejecutable Windows
+3. **Build Linux**: Construye ejecutable Linux
+4. **Build Debian**: Construye paquete .deb
+5. **Build RPM**: Construye paquete .rpm
+6. **Release**: Publica artefactos en GitHub Releases (solo con tags)
+
+**Triggers:**
+- Manual: Desde la interfaz de GitHub Actions
+- Automático: Al crear un tag con formato `v*` (ej: v0.1.0)
+
+#### 6.4 Gestión de Versiones
+- Usa Semantic Versioning (SemVer): MAJOR.MINOR.PATCH
+- Versión definida en scripts de construcción
+- Tags de git disparan releases automáticos
+- Ejemplo: `git tag v0.1.0 && git push origin v0.1.0`
+
+#### 6.5 Dependencias
+- **Windows/Linux ejecutables**: Python embebido por PyInstaller
+- **Paquetes Linux**: Dependencia declarada de Python 3.8+
+- Mínima dependencia de GitHub Actions para facilitar migración
+
+Para más detalles, consultar [DISTRIBUTION.md](docs/DISTRIBUTION.md) 
+
 
 
 ## 5. Plan de Implementación
@@ -272,26 +320,17 @@ pomodoro-py/
 5. ✅ Documentación actualizada con ejemplos de cálculo
 
 
-### Fase 10: Distribución Windows (Opcional)
-1. [ ] Crear ejecutable con PyInstaller
-2. [ ] Documentar proceso de instalación
-3. [ ] Crear instalador para Windows
-
-### Fase 11: Distribución Linux (Opcional)
-1. [ ] Crear ejecutable con PyInstaller para linux
-2. [ ] Documentar proceso de instalación
-3. [ ] Crear instalador para Linux en debian (.deb)
-4. [ ] Crear instalador para linux en RedHat (.rpm)
-
-
-### Fase 12: Configurar CICD 
-1. [ ] Crear un fichero de action para github 
-2. [ ] Debe de lanzar todos los tests automáticamente
-3. [ ] debe de lanzar el instalador de la fase 10
-4. [ ] Debe de lanzar los instaladores de la fase 11
-5. [ ] Debe de poner disponible los instaladores en GitHub como release
-6. [ ] La gestion de versiones a través de tags de git
-7. [ ] La gestion version de los instaladores 
+### Fase 10: Distribución y CI/CD ✅ COMPLETADA
+1. ✅ Crear script de construcción para Windows (build_windows.py)
+2. ✅ Crear script de construcción para Linux (build_linux.py)
+3. ✅ Crear script de construcción para Debian (.deb)
+4. ✅ Crear script de construcción para RPM (.rpm)
+5. ✅ Crear workflow de GitHub Actions (.github/workflows/build-release.yml)
+6. ✅ Configurar ejecución automática de tests
+7. ✅ Configurar construcción de todos los instaladores
+8. ✅ Configurar publicación automática en GitHub Releases
+9. ✅ Gestión de versiones mediante tags de git
+10. ✅ Documentación completa de distribución (DISTRIBUTION.md, DISTRIBUTION_es.md) 
 
 
 
