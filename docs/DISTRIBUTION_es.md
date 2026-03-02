@@ -114,6 +114,82 @@ sudo rpm -e pomodoro-timer
 
 El proyecto usa GitHub Actions para construcción y publicación automatizada. El workflow está definido en `.github/workflows/build-release.yml`.
 
+### Configuración de GITHUB_TOKEN
+
+#### ¿Qué es GITHUB_TOKEN?
+
+`GITHUB_TOKEN` es un token de autenticación **automático** que GitHub proporciona a cada workflow de GitHub Actions. **No necesitas crearlo ni configurarlo manualmente**.
+
+**Características**:
+- ✅ **Automático**: GitHub lo crea automáticamente para cada ejecución del workflow
+- ✅ **Seguro**: Expira al finalizar el workflow
+- ✅ **Sin configuración**: No necesitas añadirlo en Settings > Secrets
+- ✅ **Permisos**: Tiene permisos para crear releases, subir archivos, etc.
+
+#### Cómo se usa en el workflow
+
+En el archivo `.github/workflows/build-release.yml`:
+
+```yaml
+- name: Create Release
+  uses: softprops/action-gh-release@v1
+  with:
+    files: |
+      pomodoro-timer-windows/PomodoroTimer.exe
+      pomodoro-timer-linux/pomodoro-timer
+      pomodoro-timer-deb/*.deb
+      pomodoro-timer-rpm/**/*.rpm
+    draft: false
+    prerelease: false
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # ← Automático, no requiere configuración
+```
+
+#### Configurar permisos (si es necesario)
+
+Por defecto, `GITHUB_TOKEN` tiene permisos de lectura y escritura. Si encuentras errores de permisos:
+
+**Opción 1: En el workflow (Recomendado)**
+
+Añade al inicio de `.github/workflows/build-release.yml`:
+
+```yaml
+name: Build and Release
+
+permissions:
+  contents: write  # Necesario para crear releases
+  packages: write  # Opcional, para publicar paquetes
+
+on:
+  push:
+    tags:
+      - 'v*'
+```
+
+**Opción 2: A nivel de repositorio**
+
+1. Ve a **Settings** > **Actions** > **General**
+2. En "Workflow permissions", selecciona:
+   - ☑️ **Read and write permissions**
+3. Click en **Save**
+
+#### Troubleshooting GITHUB_TOKEN
+
+**Error: "Resource not accessible by integration"**
+- **Causa**: El GITHUB_TOKEN no tiene permisos suficientes
+- **Solución**: Añade `permissions: contents: write` al workflow (ver Opción 1 arriba)
+
+**Error: "Bad credentials"**
+- **Causa**: Raro, puede ocurrir con configuraciones especiales del repositorio
+- **Solución**: Verifica que el workflow está en la rama correcta
+
+**¿Necesitas un Personal Access Token (PAT)?**
+
+**NO** para este proyecto. Solo necesitarías un PAT si:
+- Quieres hacer push a otro repositorio
+- Necesitas acceder a APIs de GitHub fuera del repositorio actual
+- Quieres ejecutar workflows en otros repositorios
+
 ### Etapas del Workflow
 
 1. **Test** - Ejecuta todos los tests unitarios

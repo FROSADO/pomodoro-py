@@ -97,3 +97,8 @@ Branch protection rule for: main
 Para más información, consulta:
 - [GitHub Branch Protection Rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
 - [GitHub Actions Status Checks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks)
+
+## Información Adicional
+
+Para información sobre configuración de GITHUB_TOKEN y releases, consulta:
+- [Guía de Distribución](DISTRIBUTION_es.md) - Sección "Configuración de GITHUB_TOKEN"
