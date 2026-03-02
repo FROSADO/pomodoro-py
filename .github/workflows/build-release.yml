@@ -60,7 +60,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pomodoro-timer-windows
-          path: dist/PomodoroTimer.exe
+          path: dist/PomodoroTimer-Windows.zip
 
   build-linux:
     needs: test
@@ -155,7 +155,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            pomodoro-timer-windows/PomodoroTimer.exe
+            pomodoro-timer-windows/PomodoroTimer-Windows.zip
             pomodoro-timer-linux/pomodoro-timer
             pomodoro-timer-deb/*.deb
             pomodoro-timer-rpm/**/*.rpm

@@ -33,6 +33,12 @@ def build_linux():
         "--onefile",
         "--add-data=assets:assets",
         "--add-data=config.example.yaml:.",
+        "--collect-all=pygame",
+        "--exclude-module=pygame.tests",
+        "--exclude-module=pygame.examples",
+        "--exclude-module=pygame.camera",
+        "--exclude-module=pygame.midi",
+        "--exclude-module=pygame.joystick",
         "main.py"
     ]
     

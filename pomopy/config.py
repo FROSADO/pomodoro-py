@@ -3,8 +3,18 @@ Module de configuración para la aplicación Pomodoro Timer.
 Contiene valores por defecto y carga configuración desde config.yaml si existe.
 """
 import os
+import sys
 from pathlib import Path
 import yaml
+
+
+def get_resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller."""
+    try:
+        base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 
 class Config:
@@ -30,8 +40,8 @@ class Config:
     
     # Configuration de sonido
     SOUND_ENABLED = True
-    ALARM_FILE = "assets/alarm-digital.mp3"
-    TICKING_FILE = "assets/ticking-slow.mp3"
+    ALARM_FILE = get_resource_path("assets/alarm-digital.mp3")
+    TICKING_FILE = get_resource_path("assets/ticking-slow.mp3")
     
     # Configuration de tareas
     TASKS_FOLDER = "records"
