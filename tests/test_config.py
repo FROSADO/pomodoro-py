@@ -23,7 +23,7 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(config.BG_COLOR, "#2C3E50")
         self.assertEqual(config.TEXT_COLOR, "#FFFFFF")
         self.assertEqual(config.WINDOW_WIDTH, 400)
-        self.assertEqual(config.WINDOW_HEIGHT, 500)
+        self.assertEqual(config.WINDOW_HEIGHT, 600)
         self.assertTrue(config.ALWAYS_ON_TOP)
         self.assertTrue(config.SOUND_ENABLED)
         self.assertEqual(config.TASKS_FILE, "tasks.txt")
