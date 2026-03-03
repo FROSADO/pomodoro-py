@@ -7,3 +7,4 @@ records/*
 .coverage
 build/*
 dist/*
+PomodoroTimer.spec

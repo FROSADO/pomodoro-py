@@ -29,10 +29,11 @@ def build_windows():
     cmd = [
         "pyinstaller",
         "--name=PomodoroTimer",
-        "--noconsole",
-        "--onefile",
+        "--windowed",
+        "--onedir",
         "--add-data=assets;assets",
         "--add-data=config.example.yaml;.",
+        "--additional-hooks-dir=.",
         "--icon=assets/icon.ico" if os.path.exists("assets/icon.ico") else "",
         "main.py"
     ]
@@ -44,7 +45,13 @@ def build_windows():
     subprocess.run(cmd, creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == 'win32' else 0, check=True)
     
     print("\n=== Build completed ===")
-    print(f"Executable: dist/PomodoroTimer.exe")
+    print(f"Executable directory: dist/PomodoroTimer/")
+    
+    # Crear ZIP para distribución
+    print("\n=== Creating ZIP distribution ===")
+    zip_name = "PomodoroTimer-Windows"
+    shutil.make_archive(f"dist/{zip_name}", 'zip', 'dist', 'PomodoroTimer')
+    print(f"ZIP created: dist/{zip_name}.zip")
 
 if __name__ == "__main__":
     build_windows()
