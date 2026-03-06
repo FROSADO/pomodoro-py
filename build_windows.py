@@ -47,6 +47,24 @@ def build_windows():
     print("\n=== Build completed ===")
     print(f"Executable directory: dist/PomodoroTimer/")
     
+    # Copiar archivos de documentación a la raíz del directorio de distribución
+    print("\n=== Copying documentation files ===")
+    dist_dir = "dist/PomodoroTimer"
+    files_to_copy = [
+        ("config.example.yaml", "config.example.yaml"),
+        ("README.md", "README.md"),
+        ("README_es.md", "README_es.md"),
+        ("docs/CONFIG.md", "CONFIG.md"),
+        ("docs/CONFIG_es.md", "CONFIG_es.md")
+    ]
+    
+    for src, dst in files_to_copy:
+        if os.path.exists(src):
+            shutil.copy2(src, os.path.join(dist_dir, dst))
+            print(f"Copied: {src} -> {dst}")
+        else:
+            print(f"Warning: {src} not found, skipping")
+    
     # Crear ZIP para distribución
     print("\n=== Creating ZIP distribution ===")
     zip_name = "PomodoroTimer-Windows"
