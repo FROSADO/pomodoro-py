@@ -110,7 +110,7 @@ Todas las funcionalidades actuales deben mantenerse:
 ### 4.1 Tecnología
 
 **Dependencias nuevas:**
-- flet >= 0.21.0
+- flet == 0.82.0
 
 **Dependencias existentes (mantener):**
 - Python 3.8+

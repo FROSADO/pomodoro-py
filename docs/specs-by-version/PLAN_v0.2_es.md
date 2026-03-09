@@ -6,7 +6,7 @@
 
 **Duración estimada:** 17-23 horas (2.1-2.9 días)
 
-**Framework seleccionado:** Flet 0.21.0+
+**Framework seleccionado:** Flet 0.82.0
 
 **Fecha de inicio:** [A definir]
 
@@ -19,8 +19,7 @@
 ```mermaid
 %%{init: {'theme':'base'}}%%
 kanban
-  TO DO
-    [Actualizar Dependencias]
+  TODO
     [Crear Estructura Carpetas]
     [Actualizar Configuración]
     [Documentación Migración]
@@ -45,6 +44,7 @@ kanban
     [Capturas Pantalla]
     [CHANGELOG y Release]
   DONE
+    [Actualizar Dependencias]
   REJECTED
 ```
 
@@ -62,13 +62,13 @@ kanban
 ### Tareas
 
 #### 1.1 Actualizar Dependencias
-- [ ] Añadir `flet>=0.21.0` a requirements.txt
-- [ ] Instalar y verificar Flet
-- [ ] Documentar versiones
+- [x] Añadir `flet==0.82.0` a requirements.txt
+- [x] Instalar y verificar Flet
+- [x] Documentar versiones
 
 **Comando:**
 ```bash
-pip install flet>=0.21.0
+pip install flet==0.82.0
 ```
 
 #### 1.2 Crear Estructura de Carpetas
