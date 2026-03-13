@@ -23,10 +23,15 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(config.BG_COLOR, "#2C3E50")
         self.assertEqual(config.TEXT_COLOR, "#FFFFFF")
         self.assertEqual(config.WINDOW_WIDTH, 400)
-        self.assertEqual(config.WINDOW_HEIGHT, 600)
+        self.assertEqual(config.WINDOW_HEIGHT, 650)
+        self.assertFalse(config.WINDOW_RESIZABLE)
         self.assertTrue(config.ALWAYS_ON_TOP)
         self.assertTrue(config.SOUND_ENABLED)
         self.assertEqual(config.TASKS_FILE, "tasks.txt")
+        self.assertEqual(config.THEME_MODE, "dark")
+        self.assertEqual(config.COLOR_SEED, "blue")
+        self.assertTrue(config.ANIMATIONS_ENABLED)
+        self.assertEqual(config.ANIMATION_DURATION, 300)
     
     def test_load_custom_times(self):
         """Verifies that load correctly the custom times."""
@@ -77,6 +82,7 @@ colors:
 window:
   width: 500
   height: 400
+  resizable: true
   always_on_top: false
 """)
             temp_file = f.name
@@ -85,6 +91,7 @@ window:
             config = Config(config_file=temp_file, silent=False)
             self.assertEqual(config.WINDOW_WIDTH, 500)
             self.assertEqual(config.WINDOW_HEIGHT, 400)
+            self.assertTrue(config.WINDOW_RESIZABLE)
             self.assertFalse(config.ALWAYS_ON_TOP)
         finally:
             os.unlink(temp_file)
@@ -177,6 +184,40 @@ times:
         self.assertEqual(config.get_color_for_mode('short_break'), "#4ECDC4")
         self.assertEqual(config.get_color_for_mode('long_break'), "#45B7D1")
         self.assertEqual(config.get_color_for_mode('invalid'), "#FF6B6B")  # Default
+    
+    def test_load_custom_theme(self):
+        """Verifies that load correctly the theme configuration."""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            f.write("""
+theme:
+  mode: "light"
+  color_seed: "red"
+""")
+            temp_file = f.name
+        
+        try:
+            config = Config(config_file=temp_file)
+            self.assertEqual(config.THEME_MODE, "light")
+            self.assertEqual(config.COLOR_SEED, "red")
+        finally:
+            os.unlink(temp_file)
+    
+    def test_load_custom_animations(self):
+        """Verifies that load correctly the animations configuration."""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            f.write("""
+animations:
+  enabled: false
+  duration: 500
+""")
+            temp_file = f.name
+        
+        try:
+            config = Config(config_file=temp_file)
+            self.assertFalse(config.ANIMATIONS_ENABLED)
+            self.assertEqual(config.ANIMATION_DURATION, 500)
+        finally:
+            os.unlink(temp_file)
 
 
 if __name__ == '__main__':

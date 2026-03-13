@@ -35,7 +35,8 @@ class Config:
     
     # Configuration de ventana
     WINDOW_WIDTH = 400
-    WINDOW_HEIGHT = 600
+    WINDOW_HEIGHT = 650
+    WINDOW_RESIZABLE = False
     ALWAYS_ON_TOP = True
     
     # Configuration de sonido
@@ -46,6 +47,14 @@ class Config:
     # Configuration de tareas
     TASKS_FOLDER = "records"
     TASKS_FILE = "tasks.txt"  # Deprecated, kept for compatibility
+    
+    # Tema (Flet)
+    THEME_MODE = "dark"  # "dark" o "light"
+    COLOR_SEED = "blue"  # Color base Material Design
+    
+    # Animaciones (Flet)
+    ANIMATIONS_ENABLED = True
+    ANIMATION_DURATION = 300  # Duración en milisegundos
     
     def __init__(self, config_file="config.yaml", silent=False):
         """
@@ -104,6 +113,8 @@ class Config:
                     self.WINDOW_WIDTH = window['width']
                 if 'height' in window:
                     self.WINDOW_HEIGHT = window['height']
+                if 'resizable' in window:
+                    self.WINDOW_RESIZABLE = window['resizable']
                 if 'always_on_top' in window:
                     self.ALWAYS_ON_TOP = window['always_on_top']
             
@@ -124,6 +135,22 @@ class Config:
                     self.TASKS_FOLDER = tasks['folder']
                 if 'file' in tasks:
                     self.TASKS_FILE = tasks['file']
+            
+            # Loadsr configuración de tema
+            if 'theme' in config_data:
+                theme = config_data['theme']
+                if 'mode' in theme:
+                    self.THEME_MODE = theme['mode']
+                if 'color_seed' in theme:
+                    self.COLOR_SEED = theme['color_seed']
+            
+            # Loadsr configuración de animaciones
+            if 'animations' in config_data:
+                animations = config_data['animations']
+                if 'enabled' in animations:
+                    self.ANIMATIONS_ENABLED = animations['enabled']
+                if 'duration' in animations:
+                    self.ANIMATION_DURATION = animations['duration']
                     
         except Exception as e:
             if not self.silent:

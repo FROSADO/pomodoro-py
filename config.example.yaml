@@ -19,7 +19,8 @@ colors:
 # Window configuration
 window:
   width: 400           # Window width in pixels (default: 400)
-  height: 500          # Window height in pixels (default: 500)
+  height: 650          # Window height in pixels (default: 650)
+  resizable: false     # Allow window resizing (default: false)
   always_on_top: true  # Keep window always visible (default: true)
 
 # Sound configuration
@@ -31,3 +32,13 @@ sound:
 # Tasks configuration
 tasks:
   folder: "records"    # Folder where daily task files are saved (default: records)
+
+# Theme configuration (Flet)
+theme:
+  mode: "dark"         # Theme mode: "dark" or "light" (default: dark)
+  color_seed: "blue"   # Material Design base color (default: blue)
+
+# Animations configuration (Flet)
+animations:
+  enabled: true        # Enable/disable animations (default: true)
+  duration: 300        # Animation duration in milliseconds (default: 300)

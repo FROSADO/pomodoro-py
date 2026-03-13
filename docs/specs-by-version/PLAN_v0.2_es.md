@@ -20,15 +20,12 @@
 %%{init: {'theme':'base'}}%%
 kanban
   TODO
-    [Crear Estructura Carpetas]
-    [Actualizar Configuración]
     [Documentación Migración]
-    [Implementar TimerDisplay]
-    [Implementar ControlButtons]
-    [Implementar ModeSelector]
-    [Implementar TaskInput]
-    [Implementar StatsPanel]
-    [Tests Componentes]
+    [TimerDisplay + Test]
+    [ControlButtons + Test]
+    [ModeSelector + Test]
+    [TaskInput + Test]
+    [StatsPanel + Test]
     [Crear gui_flet.py]
     [Conectar PomodoroManager]
     [Actualizar main.py]
@@ -36,7 +33,6 @@ kanban
     [SnackBar Tareas]
     [Banner Timer]
     [Efectos Material]
-    [Actualizar Tests]
     [Testing Manual]
     [Corrección Bugs]
     [Optimización]
@@ -45,6 +41,8 @@ kanban
     [CHANGELOG y Release]
   DONE
     [Actualizar Dependencias]
+    [Crear Estructura Carpetas]
+    [Actualizar Configuración]
   REJECTED
 ```
 
@@ -72,9 +70,9 @@ pip install flet==0.82.0
 ```
 
 #### 1.2 Crear Estructura de Carpetas
-- [ ] Crear carpeta `pomopy/components/`
-- [ ] Crear `pomopy/components/__init__.py`
-- [ ] Crear archivos placeholder para componentes
+- [x] Crear carpeta `pomopy/components/`
+- [x] Crear `pomopy/components/__init__.py`
+- [x] Crear archivos placeholder para componentes
 
 **Estructura:**
 ```
@@ -95,10 +93,11 @@ tests/
 ```
 
 #### 1.3 Actualizar Configuración
-- [ ] Añadir sección `theme` en config.py
-- [ ] Añadir sección `animations` en config.py
-- [ ] Añadir sección `window` en config.py
-- [ ] Actualizar config.yaml.example
+- [x] Añadir sección `theme` en config.py
+- [x] Añadir sección `animations` en config.py
+- [x] Añadir sección `window` en config.py
+- [x] Actualizar config.yaml.example
+- [x] Actualizar tests de configuración
 
 **Nuevas configuraciones en config.py:**
 ```python
@@ -124,10 +123,11 @@ WINDOW_RESIZABLE = False
 
 ### Entregables Fase 1
 - ✅ requirements.txt actualizado
-- ✅ Estructura components/
-- ✅ config.py con soporte Flet
+- ✅ Estructura components/ (carpeta y __init__.py creados)
+- ✅ config.py con soporte Flet (tema, animaciones, window resizable)
 - ✅ config.yaml.example actualizado
-- ✅ MIGRATION_v0.2_es.md
+- ✅ Tests de configuración actualizados (13 tests pasando)
+- ⏳ MIGRATION_v0.2_es.md (pendiente)
 
 ### Criterios de Aceptación Fase 1
 - Flet instalado sin errores
@@ -139,19 +139,54 @@ WINDOW_RESIZABLE = False
 
 ## Fase 2: Componentes Flet Base
 
-**Duración:** 4-5 horas
+**Duración:** 5-6 horas
+
+**Metodología:** TDD (Test-Driven Development) - Cada componente se desarrolla junto con su test
 
 ### Tareas
 
-#### 2.1 Implementar TimerDisplay Component
-- [ ] Crear `pomopy/components/timer_display.py`
+#### 2.1 Implementar TimerDisplay Component + Test
+- [ ] Crear `tests/test_timer_display.py` con tests básicos
+- [ ] Implementar `pomopy/components/timer_display.py`
 - [ ] Implementar clase TimerDisplay(ft.UserControl)
 - [ ] Stack con ProgressRing y Text
 - [ ] Método update_time(time_text)
 - [ ] Método update_progress(percentage)
 - [ ] Método set_color(color)
+- [ ] Ejecutar y verificar que tests pasan
+- [ ] Cobertura > 80%
 
-**Código base:**
+**Test primero (test_timer_display.py):**
+```python
+import unittest
+from pomopy.components.timer_display import TimerDisplay
+
+class TestTimerDisplay(unittest.TestCase):
+    def test_init(self):
+        display = TimerDisplay()
+        self.assertEqual(display.time_text, "25:00")
+        self.assertEqual(display.progress, 0.0)
+    
+    def test_update_time(self):
+        display = TimerDisplay()
+        display.update_time("10:00")
+        self.assertEqual(display.time_text, "10:00")
+    
+    def test_update_progress(self):
+        display = TimerDisplay()
+        display.update_progress(50)
+        self.assertEqual(display.progress, 0.5)
+    
+    def test_set_color(self):
+        display = TimerDisplay()
+        display.set_color("#FF0000")
+        self.assertEqual(display.color, "#FF0000")
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+**Implementación del componente:**
 ```python
 import flet as ft
 
@@ -205,14 +240,44 @@ class TimerDisplay(ft.UserControl):
         self.update()
 ```
 
-#### 2.2 Implementar ControlButtons Component
-- [ ] Crear `pomopy/components/control_buttons.py`
+#### 2.2 Implementar ControlButtons Component + Test
+- [ ] Crear `tests/test_control_buttons.py` con tests básicos
+- [ ] Implementar `pomopy/components/control_buttons.py`
 - [ ] Implementar clase ControlButtons(ft.UserControl)
 - [ ] Botón Start/Pause con icono
 - [ ] Botón Reset con icono
 - [ ] Callbacks configurables
+- [ ] Ejecutar y verificar que tests pasan
+- [ ] Cobertura > 80%
 
-**Código base:**
+**Test primero (test_control_buttons.py):**
+```python
+import unittest
+from pomopy.components.control_buttons import ControlButtons
+
+class TestControlButtons(unittest.TestCase):
+    def test_init(self):
+        buttons = ControlButtons(None, None)
+        self.assertFalse(buttons.is_running)
+    
+    def test_callback_called(self):
+        called = {'start': False, 'reset': False}
+        
+        def on_start(e):
+            called['start'] = True
+        
+        def on_reset(e):
+            called['reset'] = True
+        
+        buttons = ControlButtons(on_start, on_reset)
+        self.assertIsNotNone(buttons.on_start_pause)
+        self.assertIsNotNone(buttons.on_reset)
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+**Implementación del componente:**
 ```python
 import flet as ft
 
@@ -251,13 +316,41 @@ class ControlButtons(ft.UserControl):
             self.on_start_pause(e)
 ```
 
-#### 2.3 Implementar ModeSelector Component
-- [ ] Crear `pomopy/components/mode_selector.py`
+#### 2.3 Implementar ModeSelector Component + Test
+- [ ] Crear `tests/test_mode_selector.py` con tests básicos
+- [ ] Implementar `pomopy/components/mode_selector.py`
 - [ ] Implementar clase ModeSelector(ft.UserControl)
 - [ ] Chips para Work, Short Break, Long Break
 - [ ] Callback on_mode_change
+- [ ] Ejecutar y verificar que tests pasan
+- [ ] Cobertura > 80%
 
-**Código base:**
+**Test primero (test_mode_selector.py):**
+```python
+import unittest
+from pomopy.components.mode_selector import ModeSelector
+
+class TestModeSelector(unittest.TestCase):
+    def test_init(self):
+        selector = ModeSelector(None)
+        self.assertEqual(selector.current_mode, 'work')
+    
+    def test_change_mode(self):
+        mode_changed = {'mode': None}
+        
+        def on_change(mode):
+            mode_changed['mode'] = mode
+        
+        selector = ModeSelector(on_change)
+        selector._change_mode('short_break')
+        self.assertEqual(selector.current_mode, 'short_break')
+        self.assertEqual(mode_changed['mode'], 'short_break')
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+**Implementación del componente:**
 ```python
 import flet as ft
 
@@ -294,13 +387,39 @@ class ModeSelector(ft.UserControl):
             self.on_mode_change(mode)
 ```
 
-#### 2.4 Implementar TaskInput Component
-- [ ] Crear `pomopy/components/task_input.py`
+#### 2.4 Implementar TaskInput Component + Test
+- [ ] Crear `tests/test_task_input.py` con tests básicos
+- [ ] Implementar `pomopy/components/task_input.py`
 - [ ] TextField para nombre de tarea
 - [ ] Botón Complete
 - [ ] Callbacks configurables
+- [ ] Ejecutar y verificar que tests pasan
+- [ ] Cobertura > 80%
 
-**Código base:**
+**Test primero (test_task_input.py):**
+```python
+import unittest
+from pomopy.components.task_input import TaskInput
+
+class TestTaskInput(unittest.TestCase):
+    def test_init(self):
+        task_input = TaskInput(None)
+        self.assertIsNotNone(task_input.on_complete)
+    
+    def test_complete_callback(self):
+        completed_task = {'name': None}
+        
+        def on_complete(task_name):
+            completed_task['name'] = task_name
+        
+        task_input = TaskInput(on_complete)
+        self.assertIsNotNone(task_input.on_complete)
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+**Implementación del componente:**
 ```python
 import flet as ft
 
@@ -343,12 +462,45 @@ class TaskInput(ft.UserControl):
         self.update()
 ```
 
-#### 2.5 Implementar StatsPanel Component
-- [ ] Crear `pomopy/components/stats_panel.py`
+#### 2.5 Implementar StatsPanel Component + Test
+- [ ] Crear `tests/test_stats_panel.py` con tests básicos
+- [ ] Implementar `pomopy/components/stats_panel.py`
 - [ ] Mostrar pomodoros, breaks, tiempos
 - [ ] Método update_stats(stats)
+- [ ] Ejecutar y verificar que tests pasan
+- [ ] Cobertura > 80%
 
-**Código base:**
+**Test primero (test_stats_panel.py):**
+```python
+import unittest
+from pomopy.components.stats_panel import StatsPanel
+
+class TestStatsPanel(unittest.TestCase):
+    def test_init(self):
+        panel = StatsPanel()
+        self.assertEqual(panel.stats['work'], 0)
+        self.assertEqual(panel.stats['short_break'], 0)
+        self.assertEqual(panel.stats['long_break'], 0)
+    
+    def test_update_stats(self):
+        panel = StatsPanel()
+        new_stats = {
+            'work': 5,
+            'short_break': 3,
+            'long_break': 1,
+            'work_time': '02:05',
+            'break_time': '00:20',
+            'meeting_time': '00:15:00'
+        }
+        panel.update_stats(new_stats)
+        self.assertEqual(panel.stats['work'], 5)
+        self.assertEqual(panel.stats['work_time'], '02:05')
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+**Implementación del componente:**
 ```python
 import flet as ft
 
@@ -389,53 +541,19 @@ class StatsPanel(ft.UserControl):
         self.update()
 ```
 
-#### 2.6 Tests Unitarios para Componentes
-- [ ] Crear `tests/test_timer_display.py`
-- [ ] Crear `tests/test_control_buttons.py`
-- [ ] Crear `tests/test_mode_selector.py`
-- [ ] Crear `tests/test_task_input.py`
-- [ ] Crear `tests/test_stats_panel.py`
-- [ ] Cada componente tiene su propio archivo de test
-- [ ] Cobertura > 80% por componente
-
-**Ejemplo test_timer_display.py:**
-```python
-import unittest
-from pomopy.components.timer_display import TimerDisplay
-
-class TestTimerDisplay(unittest.TestCase):
-    def test_init(self):
-        display = TimerDisplay()
-        self.assertEqual(display.time_text, "25:00")
-        self.assertEqual(display.progress, 0.0)
-    
-    def test_update_time(self):
-        display = TimerDisplay()
-        display.update_time("10:00")
-        self.assertEqual(display.time_text, "10:00")
-    
-    def test_update_progress(self):
-        display = TimerDisplay()
-        display.update_progress(50)
-        self.assertEqual(display.progress, 0.5)
-```
-
 ### Entregables Fase 2
-- ✅ components/timer_display.py
-- ✅ components/control_buttons.py
-- ✅ components/mode_selector.py
-- ✅ components/task_input.py
-- ✅ components/stats_panel.py
-- ✅ tests/test_timer_display.py
-- ✅ tests/test_control_buttons.py
-- ✅ tests/test_mode_selector.py
-- ✅ tests/test_task_input.py
-- ✅ tests/test_stats_panel.py
+- ✅ components/timer_display.py + tests/test_timer_display.py (tests pasando)
+- ✅ components/control_buttons.py + tests/test_control_buttons.py (tests pasando)
+- ✅ components/mode_selector.py + tests/test_mode_selector.py (tests pasando)
+- ✅ components/task_input.py + tests/test_task_input.py (tests pasando)
+- ✅ components/stats_panel.py + tests/test_stats_panel.py (tests pasando)
+- ✅ Cobertura > 80% por componente
 
 ### Criterios de Aceptación Fase 2
 - Todos los componentes funcionan independientemente
-- Cada componente tiene su propio archivo de test
-- Tests pasan correctamente
+- Cada componente se desarrolla junto con su test (TDD)
+- Tests pasan correctamente al finalizar cada componente
+- Cobertura > 80% por componente
 - Componentes son reutilizables
 - Código documentado
 
@@ -644,15 +762,15 @@ if __name__ == "__main__":
 
 ### Tareas
 
-#### 5.1 Actualizar Tests Unitarios
-- [ ] Actualizar test_config.py
+#### 5.1 Verificar Suite Completa de Tests
+- [ ] Ejecutar test_config.py (ya actualizado)
+- [ ] Ejecutar test_timer_display.py (verificar)
+- [ ] Ejecutar test_control_buttons.py (verificar)
+- [ ] Ejecutar test_mode_selector.py (verificar)
+- [ ] Ejecutar test_task_input.py (verificar)
+- [ ] Ejecutar test_stats_panel.py (verificar)
 - [ ] Crear test_gui_flet.py
-- [ ] Verificar test_timer_display.py
-- [ ] Verificar test_control_buttons.py
-- [ ] Verificar test_mode_selector.py
-- [ ] Verificar test_task_input.py
-- [ ] Verificar test_stats_panel.py
-- [ ] Verificar cobertura por componente
+- [ ] Verificar cobertura global > 85%
 
 #### 5.2 Ejecutar Suite de Tests
 - [ ] Ejecutar todos los tests
@@ -862,8 +980,8 @@ python -m unittest discover -s tests -p "test_*.py"
 
 ---
 
-**Última actualización:** [Fecha]
+**Última actualización:** 2024-01-XX
 
-**Estado:** En planificación
+**Estado:** En desarrollo - Fase 1 (75% completada)
 
 **Responsable:** [Nombre/IA]
