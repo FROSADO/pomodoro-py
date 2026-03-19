@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Sync Build Dependencies",
+  "description": "After completing a spec task, check if requirements.txt was modified. If dependencies changed, verify that build scripts (build_windows.py, build_linux.py, build_deb.py, build_rpm.py) and the GitHub Actions workflow properly include the new dependencies for all distribution targets.",
+  "version": "1",
+  "when": {
+    "type": "postTaskExecution"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A spec task just completed. Check if any dependency changes need to be reflected in the build/distribution scripts:\n1. Read requirements.txt and compare its packages against what build_windows.py, build_linux.py, build_deb.py, and build_rpm.py reference (e.g., --collect-all, --hidden-import, or dependency declarations).\n2. If a new package was added to requirements.txt (like flet), ensure the PyInstaller commands in build scripts include the necessary flags (--collect-all=flet, --hidden-import, etc.).\n3. Check .github/workflows/build-release.yml to ensure the CI pipeline installs the updated dependencies.\n4. If no dependency changes were made in this task, skip without making changes.\nOnly modify build scripts if there is an actual mismatch between requirements.txt and the build configurations."
+  }
+}

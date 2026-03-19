@@ -20,7 +20,6 @@
 %%{init: {'theme':'base'}}%%
 kanban
   TODO
-    [Documentación Migración]
     [TimerDisplay + Test]
     [ControlButtons + Test]
     [ModeSelector + Test]
@@ -43,6 +42,7 @@ kanban
     [Actualizar Dependencias]
     [Crear Estructura Carpetas]
     [Actualizar Configuración]
+    [Documentación Migración]
   REJECTED
 ```
 
@@ -116,10 +116,10 @@ WINDOW_RESIZABLE = False
 ```
 
 #### 1.4 Documentación de Migración
-- [ ] Crear `docs/specs-by-version/MIGRATION_v0.2_es.md`
-- [ ] Documentar cambios de arquitectura
-- [ ] Documentar diferencias Tkinter vs Flet
-- [ ] Guía de actualización
+- [x] Crear `docs/MIGRATION_v0.2_es.md`
+- [x] Documentar cambios de arquitectura
+- [x] Documentar diferencias Tkinter vs Flet
+- [x] Guía de actualización
 
 ### Entregables Fase 1
 - ✅ requirements.txt actualizado
@@ -127,13 +127,13 @@ WINDOW_RESIZABLE = False
 - ✅ config.py con soporte Flet (tema, animaciones, window resizable)
 - ✅ config.yaml.example actualizado
 - ✅ Tests de configuración actualizados (13 tests pasando)
-- ⏳ MIGRATION_v0.2_es.md (pendiente)
+- ✅ MIGRATION_v0.2_es.md (completado en docs/)
 
 ### Criterios de Aceptación Fase 1
-- Flet instalado sin errores
-- Estructura de carpetas creada
-- Config.py compila sin errores
-- Documentación completa
+- ✅ Flet instalado sin errores
+- ✅ Estructura de carpetas creada
+- ✅ Config.py compila sin errores (92 tests pasando)
+- ✅ Documentación completa (docs/MIGRATION_v0.2_es.md)
 
 ---
 

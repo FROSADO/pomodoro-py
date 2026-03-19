@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Ensure Test Coverage",
+  "description": "After completing a spec task, verify that any new or modified Python source files in pomopy/ have a corresponding test file in tests/. If a test file is missing or doesn't cover the new code, create or update it following the project's unittest conventions.",
+  "version": "1",
+  "when": {
+    "type": "postTaskExecution"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A spec task just completed. Check if the code changes have adequate test coverage:\n1. For any new or modified Python file in pomopy/ or pomopy/components/, verify a corresponding test file exists in tests/ (e.g., pomopy/components/timer_display.py → tests/test_timer_display.py).\n2. If a test file is missing, create it using unittest (not pytest) following the project convention.\n3. If a test file exists but doesn't cover the new/changed methods, add tests for them.\n4. Run the relevant test file with `python -m unittest tests.test_<module>` to verify tests pass.\nSkip if the task only changed documentation, config files, or non-Python files."
+  }
+}
