@@ -2,3 +2,4 @@ PyYAML==6.0.1
 pygame==2.6.1
 coverage==7.13.4
 flet==0.82.0
+flet-desktop==0.82.0

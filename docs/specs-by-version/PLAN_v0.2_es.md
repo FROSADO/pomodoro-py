@@ -20,14 +20,6 @@
 %%{init: {'theme':'base'}}%%
 kanban
   TODO
-    [TimerDisplay + Test]
-    [ControlButtons + Test]
-    [ModeSelector + Test]
-    [TaskInput + Test]
-    [StatsPanel + Test]
-    [Crear gui_flet.py]
-    [Conectar PomodoroManager]
-    [Actualizar main.py]
     [Configurar Animaciones]
     [SnackBar Tareas]
     [Banner Timer]
@@ -43,6 +35,14 @@ kanban
     [Crear Estructura Carpetas]
     [Actualizar Configuración]
     [Documentación Migración]
+    [TimerDisplay + Test]
+    [ControlButtons + Test]
+    [ModeSelector + Test]
+    [TaskInput + Test]
+    [StatsPanel + Test]
+    [Crear gui_flet.py]
+    [Conectar PomodoroManager]
+    [Actualizar main.py]
   REJECTED
 ```
 
@@ -146,15 +146,15 @@ WINDOW_RESIZABLE = False
 ### Tareas
 
 #### 2.1 Implementar TimerDisplay Component + Test
-- [ ] Crear `tests/test_timer_display.py` con tests básicos
-- [ ] Implementar `pomopy/components/timer_display.py`
-- [ ] Implementar clase TimerDisplay(ft.UserControl)
-- [ ] Stack con ProgressRing y Text
-- [ ] Método update_time(time_text)
-- [ ] Método update_progress(percentage)
-- [ ] Método set_color(color)
-- [ ] Ejecutar y verificar que tests pasan
-- [ ] Cobertura > 80%
+- [x] Crear `tests/test_timer_display.py` con tests básicos
+- [x] Implementar `pomopy/components/timer_display.py`
+- [x] Implementar clase TimerDisplay(ft.UserControl)
+- [x] Stack con ProgressRing y Text
+- [x] Método update_time(time_text)
+- [x] Método update_progress(percentage)
+- [x] Método set_color(color)
+- [x] Ejecutar y verificar que tests pasan
+- [x] Cobertura > 80%
 
 **Test primero (test_timer_display.py):**
 ```python
@@ -241,14 +241,14 @@ class TimerDisplay(ft.UserControl):
 ```
 
 #### 2.2 Implementar ControlButtons Component + Test
-- [ ] Crear `tests/test_control_buttons.py` con tests básicos
-- [ ] Implementar `pomopy/components/control_buttons.py`
-- [ ] Implementar clase ControlButtons(ft.UserControl)
-- [ ] Botón Start/Pause con icono
-- [ ] Botón Reset con icono
-- [ ] Callbacks configurables
-- [ ] Ejecutar y verificar que tests pasan
-- [ ] Cobertura > 80%
+- [x] Crear `tests/test_control_buttons.py` con tests básicos
+- [x] Implementar `pomopy/components/control_buttons.py`
+- [x] Implementar clase ControlButtons(ft.UserControl)
+- [x] Botón Start/Pause con icono
+- [x] Botón Reset con icono
+- [x] Callbacks configurables
+- [x] Ejecutar y verificar que tests pasan
+- [x] Cobertura > 80%
 
 **Test primero (test_control_buttons.py):**
 ```python
@@ -317,13 +317,13 @@ class ControlButtons(ft.UserControl):
 ```
 
 #### 2.3 Implementar ModeSelector Component + Test
-- [ ] Crear `tests/test_mode_selector.py` con tests básicos
-- [ ] Implementar `pomopy/components/mode_selector.py`
-- [ ] Implementar clase ModeSelector(ft.UserControl)
-- [ ] Chips para Work, Short Break, Long Break
-- [ ] Callback on_mode_change
-- [ ] Ejecutar y verificar que tests pasan
-- [ ] Cobertura > 80%
+- [x] Crear `tests/test_mode_selector.py` con tests básicos
+- [x] Implementar `pomopy/components/mode_selector.py`
+- [x] Implementar clase ModeSelector(ft.UserControl)
+- [x] Chips para Work, Short Break, Long Break
+- [x] Callback on_mode_change
+- [x] Ejecutar y verificar que tests pasan
+- [x] Cobertura > 80%
 
 **Test primero (test_mode_selector.py):**
 ```python
@@ -388,13 +388,13 @@ class ModeSelector(ft.UserControl):
 ```
 
 #### 2.4 Implementar TaskInput Component + Test
-- [ ] Crear `tests/test_task_input.py` con tests básicos
-- [ ] Implementar `pomopy/components/task_input.py`
-- [ ] TextField para nombre de tarea
-- [ ] Botón Complete
-- [ ] Callbacks configurables
-- [ ] Ejecutar y verificar que tests pasan
-- [ ] Cobertura > 80%
+- [x] Crear `tests/test_task_input.py` con tests básicos
+- [x] Implementar `pomopy/components/task_input.py`
+- [x] TextField para nombre de tarea
+- [x] Botón Complete
+- [x] Callbacks configurables
+- [x] Ejecutar y verificar que tests pasan
+- [x] Cobertura > 80%
 
 **Test primero (test_task_input.py):**
 ```python
@@ -463,12 +463,12 @@ class TaskInput(ft.UserControl):
 ```
 
 #### 2.5 Implementar StatsPanel Component + Test
-- [ ] Crear `tests/test_stats_panel.py` con tests básicos
-- [ ] Implementar `pomopy/components/stats_panel.py`
-- [ ] Mostrar pomodoros, breaks, tiempos
-- [ ] Método update_stats(stats)
-- [ ] Ejecutar y verificar que tests pasan
-- [ ] Cobertura > 80%
+- [x] Crear `tests/test_stats_panel.py` con tests básicos
+- [x] Implementar `pomopy/components/stats_panel.py`
+- [x] Mostrar pomodoros, breaks, tiempos
+- [x] Método update_stats(stats)
+- [x] Ejecutar y verificar que tests pasan
+- [x] Cobertura > 80%
 
 **Test primero (test_stats_panel.py):**
 ```python
@@ -566,10 +566,10 @@ class StatsPanel(ft.UserControl):
 ### Tareas
 
 #### 3.1 Crear gui_flet.py
-- [ ] Crear `pomopy/gui_flet.py`
-- [ ] Implementar clase PomodoroApp
-- [ ] Integrar todos los componentes
-- [ ] Configurar tema Material
+- [x] Crear `pomopy/gui_flet.py`
+- [x] Implementar clase PomodoroApp
+- [x] Integrar todos los componentes
+- [x] Configurar tema Material
 
 **Estructura base:**
 ```python
@@ -680,17 +680,17 @@ if __name__ == "__main__":
 ```
 
 #### 3.2 Conectar con PomodoroManager
-- [ ] Implementar toggle_timer()
-- [ ] Implementar reset_timer()
-- [ ] Implementar change_mode()
-- [ ] Implementar complete_task()
-- [ ] Implementar toggle_meeting()
-- [ ] Implementar _tick() con timer
+- [x] Implementar toggle_timer()
+- [x] Implementar reset_timer()
+- [x] Implementar change_mode()
+- [x] Implementar complete_task()
+- [x] Implementar toggle_meeting()
+- [x] Implementar _tick() con timer
 
 #### 3.3 Actualizar main.py
-- [ ] Importar gui_flet
-- [ ] Cambiar punto de entrada a Flet
-- [ ] Mantener gui.py como fallback temporal
+- [x] Importar gui_flet
+- [x] Cambiar punto de entrada a Flet
+- [x] Mantener gui.py como fallback temporal
 
 **main.py actualizado:**
 ```python
@@ -763,13 +763,13 @@ if __name__ == "__main__":
 ### Tareas
 
 #### 5.1 Verificar Suite Completa de Tests
-- [ ] Ejecutar test_config.py (ya actualizado)
-- [ ] Ejecutar test_timer_display.py (verificar)
-- [ ] Ejecutar test_control_buttons.py (verificar)
-- [ ] Ejecutar test_mode_selector.py (verificar)
-- [ ] Ejecutar test_task_input.py (verificar)
-- [ ] Ejecutar test_stats_panel.py (verificar)
-- [ ] Crear test_gui_flet.py
+- [x] Ejecutar test_config.py (ya actualizado)
+- [x] Ejecutar test_timer_display.py (verificar)
+- [x] Ejecutar test_control_buttons.py (verificar)
+- [x] Ejecutar test_mode_selector.py (verificar)
+- [x] Ejecutar test_task_input.py (verificar)
+- [x] Ejecutar test_stats_panel.py (verificar)
+- [x] Crear test_gui_flet.py
 - [ ] Verificar cobertura global > 85%
 
 #### 5.2 Ejecutar Suite de Tests
@@ -980,8 +980,8 @@ python -m unittest discover -s tests -p "test_*.py"
 
 ---
 
-**Última actualización:** 2024-01-XX
+**Última actualización:** 2026-03-23
 
-**Estado:** En desarrollo - Fase 1 (75% completada)
+**Estado:** En desarrollo - Fase 3 completada (161 tests pasando). Siguiente: Fase 4 (Animaciones y Efectos)
 
 **Responsable:** [Nombre/IA]

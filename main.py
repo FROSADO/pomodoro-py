@@ -1,17 +1,13 @@
 """
 Main entry point for the Pomodoro Timer application.
 """
-import tkinter as tk
-from pomopy.gui import PomodoroApp
-from pomopy.config import Config
+import flet as ft
+from pomopy.gui_flet import main as flet_main
 
 
 def main():
     """Main function that starts the application."""
-    root = tk.Tk()
-    config = Config()
-    app = PomodoroApp(root, config)
-    app.run()
+    ft.app(target=flet_main)
 
 
 if __name__ == '__main__':

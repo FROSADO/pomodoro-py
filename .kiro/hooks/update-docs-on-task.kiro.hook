@@ -1,13 +1,15 @@
 {
   "enabled": true,
   "name": "Update Docs After Task",
-  "description": "After completing a spec task, review if README.md, README_es.md, or other docs (CONFIG.md, CHANGELOG.md) need updating to reflect the changes made. If the task introduced new features, changed behavior, or modified the UI, update the relevant documentation sections.",
+  "description": "After completing a spec task, review if README.md, README_es.md, or other docs (CONFIG.md, CHANGELOG.md) need updating to reflect the changes made. If the task introduced new features, changed behavior, or modified the UI, update the relevant documentation sections. Also the plan files must be updated to reflect the current project status. ",
   "version": "1",
   "when": {
     "type": "postTaskExecution"
   },
   "then": {
     "type": "askAgent",
-    "prompt": "A spec task just completed. Check if the changes made require documentation updates. Specifically:\n1. If new functionality was added or behavior changed, update README.md and README_es.md (features list, usage instructions, project structure).\n2. If configuration options were added or changed, update docs/CONFIG.md and docs/CONFIG_es.md.\n3. If this is a notable change, add an entry to CHANGELOG.md under the current version section.\nOnly make updates if the completed task actually warrants documentation changes. Skip if the task was purely internal refactoring with no user-facing impact."
-  }
+    "prompt": "A spec task just completed. Check if the changes made require documentation updates. Specifically:\n1. If new functionality was added or behavior changed, update README.md and README_es.md (features list, usage instructions, project structure).\n2. If configuration options were added or changed, update docs/CONFIG.md and docs/CONFIG_es.md.\n3. If this is a notable change, add an entry to CHANGELOG.md under the current version section.\n4. For the plans , documented on docs/specs-by-version/PLAN*.md . Review if the current plan in progress need to be updated with the status. \nOnly make updates if the completed task actually warrants documentation changes. Skip if the task was purely internal refactoring with no user-facing impact."
+  },
+  "workspaceFolderName": "pomodoro-py",
+  "shortName": "update-docs-on-task"
 }

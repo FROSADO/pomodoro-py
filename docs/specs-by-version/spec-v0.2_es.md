@@ -393,15 +393,15 @@ Flet utiliza Material Design 3 automáticamente, proporcionando:
 
 ## 8. Estimación de Tiempo
 
-| Fase | Descripción | Tiempo Estimado |
-|------|-------------|----------------|
-| 1 | Preparación y Configuración | 2-3 horas |
-| 2 | Componentes Flet Base | 4-5 horas |
-| 3 | GUI Principal con Flet | 5-6 horas |
-| 4 | Animaciones y Efectos | 2-3 horas |
-| 5 | Testing y Refinamiento | 3-4 horas |
-| 6 | Documentación y Release | 1-2 horas |
-| **TOTAL** | | **17-23 horas** |
+| Fase | Descripción | Tiempo Estimado | Estado |
+|------|-------------|----------------|--------|
+| 1 | Preparación y Configuración | 2-3 horas | ✅ Completada |
+| 2 | Componentes Flet Base | 4-5 horas | ✅ Completada |
+| 3 | GUI Principal con Flet | 5-6 horas | ✅ Completada |
+| 4 | Animaciones y Efectos | 2-3 horas | Pendiente |
+| 5 | Testing y Refinamiento | 3-4 horas | Pendiente |
+| 6 | Documentación y Release | 1-2 horas | Pendiente |
+| **TOTAL** | | **17-23 horas** | **Fases 1-3 completadas** |
 
 ## 9. Criterios de Aceptación
 

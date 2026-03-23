@@ -34,6 +34,10 @@ def build_windows():
         "--add-data=assets;assets",
         "--add-data=config.example.yaml;.",
         "--additional-hooks-dir=.",
+        "--collect-all=flet",
+        "--collect-all=flet_desktop",
+        "--hidden-import=flet",
+        "--hidden-import=flet_desktop",
         "--icon=assets/icon.ico" if os.path.exists("assets/icon.ico") else "",
         "main.py"
     ]
